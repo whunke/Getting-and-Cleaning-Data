@@ -22,3 +22,15 @@ mean_and_std_dev <- grep("-mean\\(\\)|-std\\(\\)", features[, 2])
 X <- X[, mean_and_std_dev]
 names(X) <- features[mean_and_std_dev, 2]
 
+# The third portion of this code uses descriptive activity names to name the activities in the data set.
+
+activities <- read.table("UCI HAR Dataset/activity_labels.txt")
+Y[, 1] <- activities[Y[, 1], 2]
+names(Y) <- "activity"
+
+# The fourth portion of this code appropriately labels the dataset with descriptive variable names.
+
+names(S) <- "subject"
+cleaned <- cbind(S, Y, X)
+write.table(cleaned, "clean_data.txt")
+
